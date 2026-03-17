@@ -1,0 +1,80 @@
+---
+layout: default
+title: Hjem
+show_title: false
+permalink: /
+---
+
+<!-- Hero -->
+<div class="hero">
+  <div class="container">
+    <h1><strong>Kaare Øster</strong></h1>
+    <p class="tagline">Fagforfatter · Rejser · Projekter · Udgivelser</p>
+  </div>
+</div>
+
+<!-- Intro blokke -->
+<div class="home-intro">
+  <div class="container">
+    <div class="home-intro-grid">
+      <div class="intro-block">
+        <div class="intro-icon">✈️</div>
+        <h3>Rejser</h3>
+        <p>Rejsebeskrivelser fra hele verden — fra Arktis til Stillehavsøerne</p>
+      </div>
+      <div class="intro-block">
+        <div class="intro-icon">📚</div>
+        <h3>Udgivelser</h3>
+        <p>Fagbøger, undervisningsmaterialer og læremidler til grundskolen</p>
+      </div>
+      <div class="intro-block">
+        <div class="intro-icon">🌍</div>
+        <h3>Projekter</h3>
+        <p>Projektledelse, redaktion og faglig formidling inden for natur og geografi</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Seneste indlæg -->
+<div class="container" style="padding-top: 2.5rem;">
+  <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1.5rem;">
+    <h2 style="margin: 0; font-size: 1.25rem;">Seneste indlæg</h2>
+    <a href="/alle-indlaeg/" style="font-family: var(--font-sans); font-size: 0.85rem; color: var(--color-text-muted);">Se alle →</a>
+  </div>
+
+  <div class="category-nav">
+    <a href="/alle-indlaeg/" class="category-pill">Alle</a>
+    <a href="/rejser/" class="category-pill">Rejser</a>
+    <a href="/projekter/" class="category-pill">Projekter</a>
+    <a href="/udgivelser/" class="category-pill">Udgivelser</a>
+  </div>
+
+  <div class="post-grid">
+    {% for post in site.posts limit: 6 %}
+    <div class="post-card">
+      {% if post.image %}
+        <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" class="post-card-image">
+      {% else %}
+        <div class="post-card-image-placeholder">
+          {% if post.categories contains 'Rejser' %}✈️
+          {% elsif post.categories contains 'Bøger' or post.categories contains 'Udgivelser' %}📖
+          {% elsif post.categories contains 'Projekter' %}🌿
+          {% elsif post.categories contains 'Arktis' %}❄️
+          {% else %}📝{% endif %}
+        </div>
+      {% endif %}
+      <div class="post-card-body">
+        <div class="post-card-meta">
+          <span class="cat-tag">{% if post.categories.first %}{{ post.categories.first }}{% endif %}</span>
+          · {{ post.date | date: "%Y" }}
+        </div>
+        <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+        {% if post.excerpt %}
+          <p class="post-card-excerpt">{{ post.excerpt | strip_html | truncate: 100 }}</p>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>

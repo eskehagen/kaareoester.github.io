@@ -1,0 +1,36 @@
+---
+layout: default
+title: Alle indlæg
+permalink: /alle-indlaeg/
+---
+
+<div class="container">
+  <div class="page-content">
+    <div class="section-header">
+      <h1>Alle indlæg</h1>
+    </div>
+
+    <div class="category-nav">
+      <a href="/alle-indlaeg/" class="category-pill active">Alle</a>
+      <a href="/rejser/" class="category-pill">Rejser</a>
+      <a href="/projekter/" class="category-pill">Projekter</a>
+      <a href="/udgivelser/" class="category-pill">Udgivelser</a>
+    </div>
+
+    <ul class="post-list">
+      {% for post in site.posts %}
+      <li class="post-list-item">
+        <span class="post-list-date">{{ post.date | date: "%-d. %b %Y" }}</span>
+        <div class="post-list-content">
+          <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+          <p>
+            {% for cat in post.categories %}
+              <span class="tag" style="font-size: 0.75rem; padding: 0.15rem 0.5rem;">{{ cat }}</span>
+            {% endfor %}
+          </p>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>

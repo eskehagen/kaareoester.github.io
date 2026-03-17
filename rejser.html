@@ -1,0 +1,41 @@
+---
+layout: default
+title: Rejser
+permalink: /rejser/
+---
+
+<div class="container">
+  <div class="page-content">
+    <div class="section-header">
+      <h1>Rejser</h1>
+      <p class="lead">Beretninger fra rejser verden rundt — fra Arktis til Stillehavet</p>
+    </div>
+
+    <div class="post-grid">
+      {% assign rejse_posts = site.posts | where_exp: "post", "post.categories contains 'Rejser' or post.categories contains 'Arktis' or post.categories contains 'Danmark'" %}
+      {% for post in rejse_posts %}
+      <div class="post-card">
+        {% if post.image %}
+          <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" class="post-card-image">
+        {% else %}
+          <div class="post-card-image-placeholder">
+            {% if post.categories contains 'Arktis' %}❄️
+            {% elsif post.categories contains 'Danmark' %}🇩🇰
+            {% else %}✈️{% endif %}
+          </div>
+        {% endif %}
+        <div class="post-card-body">
+          <div class="post-card-meta">
+            {% for cat in post.categories %}{% if cat != 'Rejser' %}<span class="cat-tag">{{ cat }}</span> · {% endif %}{% endfor %}
+            {{ post.date | date: "%Y" }}
+          </div>
+          <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+          {% if post.excerpt %}
+            <p class="post-card-excerpt">{{ post.excerpt | strip_html | truncate: 110 }}</p>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>

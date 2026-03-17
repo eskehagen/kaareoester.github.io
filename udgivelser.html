@@ -1,0 +1,53 @@
+---
+layout: default
+title: Udgivelser
+permalink: /udgivelser/
+---
+
+<div class="container">
+  <div class="page-content">
+    <div class="section-header">
+      <h1>Udgivelser</h1>
+      <p class="lead">Fagbøger, undervisningsmaterialer og læremidler</p>
+    </div>
+
+    <h2>Bøger</h2>
+    <div class="post-grid">
+      {% assign bog_posts = site.posts | where_exp: "post", "post.categories contains 'Bøger'" %}
+      {% for post in bog_posts %}
+      <div class="post-card">
+        {% if post.image %}
+          <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" class="post-card-image">
+        {% else %}
+          <div class="post-card-image-placeholder">📖</div>
+        {% endif %}
+        <div class="post-card-body">
+          <div class="post-card-meta">
+            <span class="cat-tag">Bog</span> · {{ post.date | date: "%Y" }}
+          </div>
+          <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+          {% if post.excerpt %}
+            <p class="post-card-excerpt">{{ post.excerpt | strip_html | truncate: 100 }}</p>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <h2>Øvrige udgivelser</h2>
+    <ul class="post-list">
+      {% assign udg_posts = site.posts | where_exp: "post", "post.categories contains 'Udgivelser' and post.categories contains 'Bøger' == false" %}
+      {% for post in udg_posts %}
+      <li class="post-list-item">
+        <span class="post-list-date">{{ post.date | date: "%-d. %b %Y" }}</span>
+        <div class="post-list-content">
+          <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+          {% if post.excerpt %}
+            <p>{{ post.excerpt | strip_html | truncate: 140 }}</p>
+          {% endif %}
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
